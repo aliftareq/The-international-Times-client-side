@@ -1,4 +1,5 @@
 import React from 'react';
+import ScrollToTop from "react-scroll-to-top";
 import { Col, Container, Row } from 'react-bootstrap';
 import { Outlet } from 'react-router-dom';
 import Footer from '../Pages/Shared/Footer/Footer';
@@ -24,6 +25,7 @@ const Main = () => {
                 </Row>
             </Container>
             <Footer></Footer>
+            <ScrollToTop smooth />
         </div>
     );
 };
