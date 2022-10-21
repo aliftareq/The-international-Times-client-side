@@ -6,8 +6,7 @@ import { FaBookmark, FaShareAltSquare, FaStar, FaEye } from "react-icons/fa";
 
 const NewsSummuryCard = ({ news }) => {
     const { _id, title, author, details, image_url, total_view, rating } = news
-    console.log(news)
-    //console.log(title, details);
+    //console.log(news)
     return (
         <div className='my-5'>
             <Card className="">
@@ -34,7 +33,10 @@ const NewsSummuryCard = ({ news }) => {
                     <Card.Text>
                         {
                             details.length > 200
-                                ? <p>{details.slice(0, 250) + '...'} <Link to={`/news/${_id}`}>Read More</Link></p>
+                                ?
+                                <>
+                                    {details.slice(0, 250) + '...'} <Link to={`/news/${_id}`}>Read More</Link>
+                                </>
                                 : details
                         }
                     </Card.Text>

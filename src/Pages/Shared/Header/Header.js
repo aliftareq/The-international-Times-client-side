@@ -1,12 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import Image from 'react-bootstrap/Image'
+import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../Contexts/AuthProvider/AuthProvider';
 import LeftSideNav from '../LeftSideNav/LeftSideNav';
+import { FaUserCircle } from "react-icons/fa";
 
 const Header = () => {
+    const { user, LogOut } = useContext(AuthContext);
+    console.log(user);
+
+    //handler
+    const handleSignOut = () => {
+        LogOut()
+    }
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
             <Container>
@@ -28,12 +39,34 @@ const Header = () => {
                             </NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
+                    <Nav className=''>
+                        <Nav.Link href="#deets">
+                            {
+                                user?.uid
+                                    ?
+                                    <>
+                                        <span className='mx-2'>{user?.displayName}</span>
+                                        < Image className='mx-2' roundedCircle src={user.photoURL} style={{ height: '40px' }}>
+                                        </Image>
+                                        <Button onClick={handleSignOut} className='mx-2' variant="light">Logout</Button>
+                                    </>
+                                    :
+                                    <>
+                                        <Link className='mx-2' to='/login'>Login</Link>
+                                        <Link to='/register'>Register</Link>
+                                    </>
+                            }
+                        </Nav.Link>
+                        <Nav.Link href="#">
+                            {/* <FaUserCircle className='text-warning' /> */}
+                        </Nav.Link>
+                    </Nav>
                     <Nav className='d-lg-none'>
                         <LeftSideNav></LeftSideNav>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
-        </Navbar>
+        </Navbar >
     );
 };
 
