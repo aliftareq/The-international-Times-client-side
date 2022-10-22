@@ -5,10 +5,12 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import { FaDiscord, FaFacebook, FaGithub, FaGoogle, FaTwitter, FaWhatsapp, FaYoutube } from 'react-icons/fa';
 import { FcRules } from 'react-icons/fc';
 import { MdOutlinePrivacyTip } from "react-icons/md";
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Contexts/AuthProvider/AuthProvider';
 import BrandCarousel from '../BrandCarousel/BrandCarousel';
 
 const RightSideNav = () => {
+    const navigate = useNavigate()
     const { signInwithGoogle, setUser } = useContext(AuthContext)
 
     //handlers 
@@ -16,6 +18,7 @@ const RightSideNav = () => {
         signInwithGoogle()
             .then(result => {
                 setUser(result.user)
+                navigate('/')
             })
             .catch(error => {
                 console.error(error);

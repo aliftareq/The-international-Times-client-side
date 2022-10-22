@@ -5,7 +5,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Contexts/AuthProvider/AuthProvider';
 import LeftSideNav from '../LeftSideNav/LeftSideNav';
 import { FaUserCircle } from "react-icons/fa";
@@ -13,10 +13,12 @@ import { FaUserCircle } from "react-icons/fa";
 const Header = () => {
     const { user, LogOut } = useContext(AuthContext);
     console.log(user);
-
+    //navigation 
+    const navigate = useNavigate()
     //handler
     const handleSignOut = () => {
         LogOut()
+        navigate('/login')
     }
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -40,26 +42,41 @@ const Header = () => {
                         </NavDropdown>
                     </Nav>
                     <Nav className=''>
-                        <Nav.Link href="#deets">
+                        <Nav>
                             {
                                 user?.uid
                                     ?
-                                    <>
-                                        <span className='mx-2'>{user?.displayName}</span>
-                                        < Image className='mx-2' roundedCircle src={user.photoURL} style={{ height: '40px' }}>
-                                        </Image>
+                                    <div className='d-flex align-items-center'>
+                                        <span className='mx-2 text-white'>
+                                            {
+                                                user?.displayName
+                                                    ? user?.displayName
+                                                    : 'Anonymous'
+                                            }
+                                        </span>
+
                                         <Button onClick={handleSignOut} className='mx-2' variant="light">Logout</Button>
-                                    </>
+                                    </div>
                                     :
                                     <>
                                         <Link className='mx-2' to='/login'>Login</Link>
                                         <Link to='/register'>Register</Link>
+
                                     </>
                             }
-                        </Nav.Link>
-                        <Nav.Link href="#">
-                            {/* <FaUserCircle className='text-warning' /> */}
-                        </Nav.Link>
+                            <Link to='/profile'>
+                                {
+                                    user?.photoURL
+                                        ? < Image className='mx-2' roundedCircle src={user?.photoURL} style={{ height: '40px' }}>
+                                        </Image>
+                                        : <FaUserCircle className='text-warning mx-2' />
+                                }
+                            </Link>
+
+                        </Nav>
+                        <Nav>
+
+                        </Nav>
                     </Nav>
                     <Nav className='d-lg-none'>
                         <LeftSideNav></LeftSideNav>
