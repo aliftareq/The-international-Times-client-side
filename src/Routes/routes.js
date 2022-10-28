@@ -16,17 +16,17 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                loader: () => fetch('http://localhost:5000/news'),
+                loader: () => fetch('https://the-international-times-server-side.vercel.app/news'),
                 element: <Home></Home>
             },
             {
                 path: '/catagory/:id',
-                loader: ({ params }) => fetch(`http://localhost:5000/category/${params.id}`),
+                loader: ({ params }) => fetch(`https://the-international-times-server-side.vercel.app/category/${params.id}`),
                 element: <Catagory></Catagory>
             },
             {
                 path: '/news/:id',
-                loader: ({ params }) => fetch(`http://localhost:5000/news/${params.id}`),
+                loader: ({ params }) => fetch(`https://the-international-times-server-side.vercel.app/news/${params.id}`),
                 element: <PrivateRoutes><News></News></PrivateRoutes>
             },
             {
